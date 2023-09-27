@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Container, Grid } from '@mui/material';
+import Table from './component/Table'; 
+import DataSummary from './component/DataSummary'; 
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import GraphQl from './graphQl/graphql';
 
 function App() {
+  // Define columns and fetch data using Apollo Client
+  const client = new ApolloClient({
+    uri: 'https://countries.trevorblades.com/', // Your GraphQL API URL
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <GraphQl/>
+      </ApolloProvider>
   );
 }
 
